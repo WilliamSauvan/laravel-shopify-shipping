@@ -12,8 +12,8 @@ class ShopifyShippingService
 
     public function __construct()
     {
-        $shopDomain = config('shopify-shipping.shop_domain');
-        $this->accessToken = config('shopify-shipping.access_token');
+        $shopDomain = config('laravel-shopify-shipping.shop_domain');
+        $this->accessToken = config('laravel-shopify-shipping.access_token');
         $this->baseApiUrl = "https://$shopDomain/admin/api/2025-01";
     }
 
