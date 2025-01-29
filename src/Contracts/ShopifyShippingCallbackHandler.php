@@ -2,10 +2,10 @@
 
 namespace ShopifyShipping\Contracts;
 
+use App\Http\Requests\DeliveryApi\IncomingShopifyShippingRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 interface ShopifyShippingCallbackHandler
 {
-    public function handle(Request $request): JsonResponse;
+    public function handle(IncomingShopifyShippingRequest $request): JsonResponse;
 }
