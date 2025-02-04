@@ -3,6 +3,9 @@
 namespace ShopifyShipping\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Log;
 
 class IncomingShopifyShippingRequest extends FormRequest
 {
@@ -111,9 +114,9 @@ class IncomingShopifyShippingRequest extends FormRequest
 
             self::RATE . '.' . self::ORIGIN                                   => ['required', 'array'],
             self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_COUNTRY      => ['required', 'string', 'size:2'],
-            self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_POSTAL_CODE  => ['required', 'string'],
-            self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_CITY         => ['required', 'string'],
-            self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_ADDRESS1     => ['required', 'string'],
+            self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_POSTAL_CODE  => ['nullable', 'string'],
+            self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_CITY         => ['nullable', 'string'],
+            self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_ADDRESS1     => ['nullable', 'string'],
             self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_LATITUDE     => ['nullable', 'numeric'],
             self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_LONGITUDE    => ['nullable', 'numeric'],
             self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_COMPANY_NAME => ['nullable', 'string'],
@@ -137,7 +140,7 @@ class IncomingShopifyShippingRequest extends FormRequest
             self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_REQUIRES_SHIPPING   => ['required', 'boolean'],
             self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_TAXABLE             => ['required', 'boolean'],
             self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_FULFILLMENT_SERVICE => ['required', 'string'],
-            self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_PROPERTIES          => ['nullable', 'array'],
+            self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_PROPERTIES          => ['nullable'],
             self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_PRODUCT_ID          => ['required', 'integer'],
             self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_VARIANT_ID          => ['required', 'integer'],
         ];
@@ -146,5 +149,17 @@ class IncomingShopifyShippingRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        Log::error('IncomingShopifyShippingRequest validation failed', [
+            'errors' => $validator->errors(),
+        ]);
+
+        throw new HttpResponseException(response()->json([
+            'message' => 'Failed validation',
+            'errors'  => $validator->errors(),
+        ], 422));
     }
 }

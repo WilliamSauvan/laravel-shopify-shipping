@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3] - 2025-02-04
+### Updated
+- Updated dedicated `FormRequest` for allowing nullable fields and returning more explicit error.
+- Improved ReadMe with usage steps.
+- Improved default callback controller.
+
 ## [1.2] - 2025-01-30
 ### Added
 - Added a dedicated `FormRequest` for handling Shopify shipping callback validation.
