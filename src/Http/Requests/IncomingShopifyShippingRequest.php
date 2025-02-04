@@ -123,26 +123,26 @@ class IncomingShopifyShippingRequest extends FormRequest
 
             self::RATE . '.' . self::DESTINATION                                        => ['required', 'array'],
             self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_COUNTRY      => ['required', 'string', 'size:2'],
-            self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_POSTAL_CODE  => ['required', 'string'],
+            self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_POSTAL_CODE  => ['nullable', 'string'],
             self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_CITY         => ['required', 'string'],
-            self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_ADDRESS1     => ['required', 'string'],
+            self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_ADDRESS1     => ['nullable', 'string'],
             self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_LATITUDE     => ['nullable', 'numeric'],
             self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_LONGITUDE    => ['nullable', 'numeric'],
             self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_COMPANY_NAME => ['nullable', 'string'],
 
             self::RATE . '.' . self::ITEMS                                          => ['required', 'array'],
-            self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_NAME                => ['required', 'string'],
+            self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_NAME                => ['nullable', 'string'],
             self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_SKU                 => ['nullable', 'string'],
             self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_QUANTITY            => ['required', 'integer', 'min:1'],
             self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_GRAMS               => ['required', 'integer', 'min:0'],
             self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_PRICE               => ['required', 'integer', 'min:0'],
-            self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_VENDOR              => ['required', 'string'],
+            self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_VENDOR              => ['nullable', 'string'],
             self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_REQUIRES_SHIPPING   => ['required', 'boolean'],
             self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_TAXABLE             => ['required', 'boolean'],
             self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_FULFILLMENT_SERVICE => ['required', 'string'],
             self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_PROPERTIES          => ['nullable'],
-            self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_PRODUCT_ID          => ['required', 'integer'],
-            self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_VARIANT_ID          => ['required', 'integer'],
+            self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_PRODUCT_ID          => ['nullable', 'integer'],
+            self::RATE . '.' . self::ITEMS . '.*.' . self::ITEM_VARIANT_ID          => ['nullable', 'integer'],
         ];
     }
 
