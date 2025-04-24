@@ -113,7 +113,7 @@ class IncomingShopifyShippingRequest extends FormRequest
             self::RATE . '.' . self::LOCALE   => ['required', 'string'],
 
             self::RATE . '.' . self::ORIGIN                                   => ['required', 'array'],
-            self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_COUNTRY      => ['required', 'string', 'size:2'],
+            self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_COUNTRY      => ['nullable', 'string', 'size:2'],
             self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_POSTAL_CODE  => ['nullable', 'string'],
             self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_CITY         => ['nullable', 'string'],
             self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_ADDRESS1     => ['nullable', 'string'],
@@ -122,9 +122,9 @@ class IncomingShopifyShippingRequest extends FormRequest
             self::RATE . '.' . self::ORIGIN . '.' . self::ORIGIN_COMPANY_NAME => ['nullable', 'string'],
 
             self::RATE . '.' . self::DESTINATION                                        => ['required', 'array'],
-            self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_COUNTRY      => ['required', 'string', 'size:2'],
+            self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_COUNTRY      => ['nullable', 'string', 'size:2'],
             self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_POSTAL_CODE  => ['nullable', 'string'],
-            self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_CITY         => ['required', 'string'],
+            self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_CITY         => ['nullable', 'string'],
             self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_ADDRESS1     => ['nullable', 'string'],
             self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_LATITUDE     => ['nullable', 'numeric'],
             self::RATE . '.' . self::DESTINATION . '.' . self::DESTINATION_LONGITUDE    => ['nullable', 'numeric'],
